@@ -1,10 +1,15 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useRouteError } from 'react-router-dom'
 import MovieCard from '../components/Ui/MovieCard';
 import YouTube from 'react-youtube';
 
 const MovieDetail = () => {
     const data = useLoaderData();
+    const error = useRouteError();
+
+    if (error) {
+        return <div>Error: {error.statusText || 'Failed to load movie details'}</div>;
+    }
     const movieData = data.movie
     const videoData = data.videos.results
     const isWebSeries = data.isWebSeries
@@ -75,7 +80,7 @@ const RunTime = ({ time, isWebSeries, number_of_seasons }) => {
 }
 const TrailerVideo = ({ youtubeKey }) => {
 
-    const width = ((window.innerWidth > 0) ? window.innerWidth : screen.width)*.9
+    const width = ((window.innerWidth > 0) ? window.innerWidth : screen.width) * .9
     const opts = {
         // height: window.matchMedia("(max-width: 768px)").matches ? '' :'390',
         width: window.matchMedia("(max-width: 768px)").matches ? width : '640',
