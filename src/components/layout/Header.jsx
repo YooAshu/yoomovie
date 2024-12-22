@@ -16,7 +16,7 @@ const Header = () => {
     const activeBtn = "md:py-2 md:px-3 py-0 px-2 rounded-full flex items-center"
     
     return (
-        <div className="w-full md:h-20 bg-zinc-800 md:flex md:items-center md:justify-between md:px-14 rounded-b-3xl grid px-3 grid-rows-2 grid-cols-2 h-max gap-y-3 items-end py-4">
+        <div className={`w-full md:h-20 bg-zinc-800 md:flex md:items-center md:justify-between md:px-14 rounded-b-3xl grid px-3 grid-cols-2 h-max gap-y-3 items-end py-4`}>
 
             <h1 className="text-white font-Galada text-4xl"><span className="text-violet-500">Yoo</span>Movies</h1>
 

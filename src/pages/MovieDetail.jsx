@@ -13,35 +13,53 @@ const MovieDetail = () => {
     const movieData = data.movie
     const videoData = data.videos.results
     const isWebSeries = data.isWebSeries
-    // console.log(data)
     const key = videoKey(videoData)
+    const tmdbid = movieData.id
     return (
-        <div className='w-full md:p-10 my-10 flex items-start md:flex-row gap-24 p-5 flex-col'>
-            <MovieCard data={movieData} className={"md:w-96 w-full"} titleDisplay={"hidden"} />
-            <div className="flex flex-col md:w-2/4 w-full gap-14">
-                <h1 className='text-3xl font-bold'>
-                    {!isWebSeries ? `Movie Name : ${movieData.title}` : `Series Name : ${movieData.name}`}
+        <>
+            <div className='w-full md:p-10 my-10 flex items-start md:flex-row gap-24 p-5 flex-col'>
+                <MovieCard data={movieData} className={"md:w-96 w-full"} titleDisplay={"hidden"} />
+                <div className="flex flex-col md:w-2/4 w-full gap-14">
+                    <h1 className='text-3xl font-bold'>
+                        {!isWebSeries ? `Movie Name : ${movieData.title}` : `Series Name : ${movieData.name}`}
 
-                </h1>
-                <div>
-                    <h2 className='text-lg font-bold'>Genres</h2>
-                    <ul className='flex gap-4 mt-4'>
-                        {movieData.genres.map((genre) => {
-                            return <li key={genre.id} className='text-lg bg-violet-500 rounded-full px-2'>{genre.name}</li>
-                        })}
-                    </ul>
+                    </h1>
+                    <div>
+                        <h2 className='text-lg font-bold'>Genres</h2>
+                        <ul className='flex gap-4 mt-4'>
+                            {movieData.genres.map((genre) => {
+                                return <li key={genre.id} className='text-lg bg-violet-500 rounded-full px-2'>{genre.name}</li>
+                            })}
+                        </ul>
+                    </div>
+                    <p className='text-lg'>
+                        <span className='font-bold'>
+                            {!isWebSeries ? 'Movie Description' : 'Series Description'}
+                        </span>
+                        <br /> {movieData.overview}</p>
+                    <Released status={movieData.status} date={movieData.release_date || movieData.next_episode_to_air} isWebSeries={isWebSeries} />
+                    <RunTime time={movieData.runtime} isWebSeries={isWebSeries} number_of_seasons={movieData.number_of_seasons} />
+
+                    <TrailerVideo youtubeKey={key} />
                 </div>
-                <p className='text-lg'>
-                    <span className='font-bold'>
-                        {!isWebSeries ? 'Movie Description' : 'Series Description'}
-                    </span>
-                    <br /> {movieData.overview}</p>
-                <Released status={movieData.status} date={movieData.release_date || movieData.next_episode_to_air} isWebSeries={isWebSeries} />
-                <RunTime time={movieData.runtime} isWebSeries={isWebSeries} number_of_seasons={movieData.number_of_seasons} />
 
-                <TrailerVideo youtubeKey={key} />
             </div>
-        </div>
+            <div
+                style={{
+                    width: '100%',
+                    height: '100vh',
+                    display:'flex',
+                    justifyContent: 'center',
+                    padding: 0,
+                    overflow: 'hidden',
+                }}
+            >
+                <iframe id="video-iframe"
+                    width="100%" height="100%" 
+                    src={`https://flicky.host/embed/movie/?id=${tmdbid}`} title="Video player" frameborder="0" allowfullscreen
+                    allowtransparency></iframe>
+            </div>
+        </>
     )
 }
 
@@ -98,7 +116,6 @@ const TrailerVideo = ({ youtubeKey }) => {
     );
 };
 function videoKey(videoData) {
-    console.log(videoData)
     if (videoData.length > 0) {
         // Search for object with "trailer" in the title first (case-insensitive)
         const trailer = videoData.find(item => /trailer/i.test(item.name));
