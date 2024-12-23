@@ -2,6 +2,8 @@ import React from 'react'
 import { useLoaderData, useRouteError } from 'react-router-dom'
 import MovieCard from '../components/Ui/MovieCard';
 import YouTube from 'react-youtube';
+import MoviePlayer from '../components/Ui/MoviePlayer';
+import SeriesPlayer from '../components/Ui/SeriesPlayer';
 
 const MovieDetail = () => {
     const data = useLoaderData();
@@ -15,6 +17,7 @@ const MovieDetail = () => {
     const isWebSeries = data.isWebSeries
     const key = videoKey(videoData)
     const tmdbid = movieData.id
+    console.log(movieData)
     return (
         <>
             <div className='w-full md:p-10 my-10 flex items-start md:flex-row gap-24 p-5 flex-col'>
@@ -26,9 +29,9 @@ const MovieDetail = () => {
                     </h1>
                     <div>
                         <h2 className='text-lg font-bold'>Genres</h2>
-                        <ul className='flex gap-4 mt-4'>
+                        <ul className='flex gap-4 mt-4 overflow-scroll' style={{scrollbarWidth:'none'}}>
                             {movieData.genres.map((genre) => {
-                                return <li key={genre.id} className='text-lg bg-violet-500 rounded-full px-2'>{genre.name}</li>
+                                return <li key={genre.id} className='text-lg bg-violet-500 rounded-full px-2  whitespace-nowrap'>{genre.name}</li>
                             })}
                         </ul>
                     </div>
@@ -44,21 +47,10 @@ const MovieDetail = () => {
                 </div>
 
             </div>
-            <div
-                style={{
-                    width: '100%',
-                    height: '100vh',
-                    display:'flex',
-                    justifyContent: 'center',
-                    padding: 0,
-                    overflow: 'hidden',
-                }}
-            >
-                <iframe id="video-iframe"
-                    width="100%" height="100%" 
-                    src={`https://flicky.host/embed/movie/?id=${tmdbid}`} title="Video player" frameborder="0" allowfullscreen
-                    allowtransparency></iframe>
-            </div>
+
+            {!isWebSeries && <MoviePlayer tmdbid={tmdbid} />}
+            {isWebSeries && <SeriesPlayer data = {movieData}/>}
+
         </>
     )
 }
