@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import './../../index.css'
 
-const SeriesPlayer = ({ data }) => {
-    const [season_number, setSeason_number] = useState(0)
+const SeriesPlayer = ({ data, seasonDetails }) => {
+    const [season_number, setSeason_number] = useState(1)
     const [episode_number, setEpisode_number] = useState(0)
-    const totalEpisodeInSeason = data.seasons[season_number].episode_count
+
     const handleSeasonChange = (n) => {
         setSeason_number(() => n)
     }
@@ -12,21 +13,23 @@ const SeriesPlayer = ({ data }) => {
     }
     return (
         <div className=''>
-            <ul className='flex gap-4 mt-4 overflow-scroll cursor-pointer' style={{scrollbarWidth:'none'}}>
+            <ul className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,120px)] mx-3 my-10 cursor-pointer'>
                 {
-                    data.seasons.map((season, index) => {
+
+                    seasonDetails.map((season, index) => {
                         return <li
                             key={index}
-                            onClick={() => handleSeasonChange(index)}
-                            className='text-lg bg-violet-500 rounded-full px-6 whitespace-nowrap'>
-                            {season.name}
+                            onClick={() => handleSeasonChange(season.season_number)}
+                            className={`shadow__btn whitespace-nowrap ${season_number == index + 1 ? 'active' : ''} `}>
+                            Season {season.season_number}
                         </li>
                     })
                 }
             </ul>
-            <div className='flex gap-4 mt-4 overflow-scroll cursor-pointer' style={{scrollbarWidth:'none'}}>
-                {[...Array(totalEpisodeInSeason)].map((_, index) => (
-                    <div key={index} onClick={() => handleEpisodeChange(index)} className='text-lg bg-violet-500 rounded-full px-6 whitespace-nowrap' >
+            <div className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,120px)] mx-3 cursor-pointer'>
+                {[...Array(seasonDetails[season_number - 1].releasedEpisodes)].map((_, index) => (
+                    <div key={index} onClick={() => handleEpisodeChange(index)}
+                        className={`shadow__btn whitespace-nowrap ${episode_number==index ? 'active' : ''}`} >
                         Episode {index + 1}
                     </div>
                 ))}
@@ -41,12 +44,12 @@ const SeriesPlayer = ({ data }) => {
                     justifyContent: 'center',
                     padding: 0,
                     overflow: 'hidden',
-                    margin:'100px 0px'
+                    margin: '100px 0px'
                 }}
             >
                 <iframe id="video-iframe"
                     width="100%" height="100%"
-                    src={`https://player.autoembed.cc/embed/tv/${data.id}/${season_number + 1}/${episode_number + 1}`}
+                    src={`https://player.autoembed.cc/embed/tv/${data.id}/${season_number}/${episode_number + 1}`}
                     title="Video player" frameBorder="0" allowFullScreen
                 >
                 </iframe>
@@ -55,5 +58,7 @@ const SeriesPlayer = ({ data }) => {
 
     )
 }
+
+
 
 export default SeriesPlayer

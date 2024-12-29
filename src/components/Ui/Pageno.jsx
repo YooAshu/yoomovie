@@ -16,17 +16,17 @@ const Pageno = ({ currentPage, setCurrentPage }) => {
         navigate(`?${params.toString()}`);
     };
     return (
-        <div className='flex w-full justify-center gap-6 my-10'>
+        <div className='flex justify-center gap-6 my-10 w-full'>
             <button
                 onClick={() => handlePageChange(Number(currentPage) - 1)}
                 disabled={currentPage <= 1}
-                className='bg-violet-500 px-3 rounded-md text-2xl font-semibold'
+                className='font-semibold text-2xl gradient_btn'
             >
                 Previous
             </button>
             <button
                 onClick={() => handlePageChange(Number(currentPage) + 1)}
-                className='bg-violet-500 px-3 rounded-md text-2xl font-semibold'
+                className='font-semibold text-2xl gradient_btn'
             // disabled={currentPage <= 1}
             >
                 Next

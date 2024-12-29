@@ -15,23 +15,24 @@ const MovieDetail = () => {
     const movieData = data.movie
     const videoData = data.videos.results
     const isWebSeries = data.isWebSeries
+    const seasonDetail = data.seasonDetail
     const key = videoKey(videoData)
     const tmdbid = movieData.id
     console.log(movieData)
     return (
         <>
-            <div className='w-full md:p-10 my-10 flex items-start md:flex-row gap-24 p-5 flex-col'>
+            <div className='flex md:flex-row flex-col items-start gap-24 my-10 p-5 md:p-10 w-full'>
                 <MovieCard data={movieData} className={"md:w-96 w-full"} titleDisplay={"hidden"} />
-                <div className="flex flex-col md:w-2/4 w-full gap-14">
-                    <h1 className='text-3xl font-bold'>
+                <div className="flex flex-col gap-14 w-full md:w-2/4">
+                    <h1 className='font-bold text-3xl'>
                         {!isWebSeries ? `Movie Name : ${movieData.title}` : `Series Name : ${movieData.name}`}
 
                     </h1>
                     <div>
-                        <h2 className='text-lg font-bold'>Genres</h2>
+                        <h2 className='font-bold text-lg'>Genres</h2>
                         <ul className='flex gap-4 mt-4 overflow-scroll' style={{scrollbarWidth:'none'}}>
                             {movieData.genres.map((genre) => {
-                                return <li key={genre.id} className='text-lg bg-violet-500 rounded-full px-2  whitespace-nowrap'>{genre.name}</li>
+                                return <li key={genre.id} className='whitespace-nowrap gradient_btn'>{genre.name}</li>
                             })}
                         </ul>
                     </div>
@@ -49,7 +50,7 @@ const MovieDetail = () => {
             </div>
 
             {!isWebSeries && <MoviePlayer tmdbid={tmdbid} />}
-            {isWebSeries && <SeriesPlayer data = {movieData}/>}
+            {isWebSeries && <SeriesPlayer data = {movieData} seasonDetails = {seasonDetail}/>}
 
         </>
     )
@@ -59,7 +60,7 @@ const Released = ({ status, date, isWebSeries }) => {
     if (!isWebSeries) {
         return (
             <span>
-                <span className='text-lg bg-violet-500 rounded-full px-2 font-semibold w-fit'>Releasing Date</span>
+                <span className='font-semibold text-lg gradient_btn'>Releasing Date</span>
                 <span> : {date}</span>
             </span>
         )
@@ -68,13 +69,13 @@ const Released = ({ status, date, isWebSeries }) => {
     }
     else {
         if (status === 'Ended') {
-            return <span className='text-lg bg-violet-500 rounded-full px-2 font-semibold w-fit'>Series Completed</span>
+            return <span className='font-semibold text-lg gradient_btn'>Series Completed</span>
         }
         return (
 
             <span>
-                <span className='text-lg bg-violet-500 rounded-full px-2 font-semibold w-fit'>
-                    Currently Runnung
+                <span className='font-semibold text-lg gradient_btn'>
+                    Currently Running
                 </span>
                 <br /><span> Next Episode on : {date && date.air_date}</span>
             </span>
@@ -84,9 +85,9 @@ const Released = ({ status, date, isWebSeries }) => {
 
 const RunTime = ({ time, isWebSeries, number_of_seasons }) => {
     if (!isWebSeries) {
-        return <span className='text-lg'> <span className=' bg-violet-500 rounded-full px-2 font-semibold'>Run Time</span> : {Math.floor(time / 60)}h {time % 60}m</span>
+        return <span className='text-lg'> <span className='font-semibold gradient_btn'>Run Time</span> : {Math.floor(time / 60)}h {time % 60}m</span>
     }
-    return <span className='text-lg'> <span className=' bg-violet-500 rounded-full px-2 font-semibold'>Total Seasons</span> : {number_of_seasons}</span>
+    return <span className='text-lg'> <span className='font-semibold gradient_btn'>Total Seasons</span> : {number_of_seasons}</span>
 }
 const TrailerVideo = ({ youtubeKey }) => {
 

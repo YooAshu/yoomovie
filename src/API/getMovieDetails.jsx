@@ -1,3 +1,4 @@
+import getSeasonDetails from "./getSeasonsDetails";
 const getMovieDetails = async ({ params, request }) => {
     const id = params.movieID;
 
@@ -27,11 +28,21 @@ const getMovieDetails = async ({ params, request }) => {
         const movieData = await movieRes.json();
         const videoData = await videoRes.json();
 
+        // get details about each season
+
+        var seasonDetails = []
+        if (isWebSeries) {
+            const totalSeason = movieData.seasons.filter(season => season.season_number !=0 && season.episode_count!=0).length;
+            seasonDetails = await getSeasonDetails(id, totalSeason);
+        }
+
+
         // Return the data from both APIs
         return {
             movie: movieData,
             videos: videoData,
-            isWebSeries: isWebSeries
+            isWebSeries: isWebSeries,
+            seasonDetail: seasonDetails
         };
     } catch (error) {
         // Handle network errors or invalid responses
