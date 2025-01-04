@@ -5,12 +5,38 @@ const getAllMovie = async ({ params, request }) => {
     const isWebSeries = url.pathname.includes('/webseries');
     const movieOrtv = isWebSeries ? 'tv' : 'movie';
 
-    const searchOrDiscover = url.searchParams.get('search') ? 'search' : 'discover';
+    const isSearching = url.searchParams.get('search')
     const searchQuery = url.searchParams.get('search')
         ? `query=${encodeURIComponent(url.searchParams.get('search'))}&`
         : '';
 
-    const API = `https://api.themoviedb.org/3/${searchOrDiscover}/${movieOrtv}?${searchQuery}include_adult=false&include_video=true&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${import.meta.env.VITE_API_KEY}`;
+    var API
+    if (!isWebSeries) {
+        // API = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=${page}
+        // &primary_release_date.lte=2025-01-04&sort_by=primary_release_date.desc&watch_region=IN&with_original_language=hi%7Cen%7Cta%7Cte
+        // &with_watch_monetization_types=flatrate|rent|ads|buy&with_watch_providers=8&api_key=${import.meta.env.VITE_API_KEY}`;
+        if (isSearching) {
+            API = `https://api.themoviedb.org/3/search/movie?${searchQuery}&include_adult=false&language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`;
+        }
+        else {
+            API = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`;
+
+        }
+    }
+    else {
+        // API = `https://api.themoviedb.org/3/discover/tv?
+        // &language=en-US&page=${page}&screened_theatrically=&sort_by=popularity.desc&watch_region=IN&with_origin_country=IN|US|KR|JA&with_original_language=hi|en|ja|ko
+        // &with_watch_monetization_types=flatrate&with_watch_providers=&api_key=${import.meta.env.VITE_API_KEY}`;
+        if (isSearching) {
+            API = `https://api.themoviedb.org/3/search/tv?${searchQuery}&include_adult=false&language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`;
+        }
+        else{
+
+            API = `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&page=${page}&sort_by=first_air_date.desc&with_watch_providers=8|119|283|122|350&watch_region=IN&with_origin_country=IN|US|KR|JA&with_original_language=hi|en|ja|ko&with_watch_monetization_types=flatrate`;
+        }
+        
+        
+    }
 
     try {
         const res = await fetch(API);

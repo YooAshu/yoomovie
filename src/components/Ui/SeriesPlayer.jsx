@@ -13,7 +13,7 @@ const SeriesPlayer = ({ data, seasonDetails }) => {
     }
     return (
         <div className=''>
-            <ul className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,120px)] mx-3 my-10 cursor-pointer'>
+            <ul className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,100px)] md:grid-cols-[repeat(auto-fit,150px)] mx-3 my-10 cursor-pointer'>
                 {
 
                     seasonDetails.map((season, index) => {
@@ -26,7 +26,7 @@ const SeriesPlayer = ({ data, seasonDetails }) => {
                     })
                 }
             </ul>
-            <div className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,120px)] mx-3 cursor-pointer'>
+            <div className='items-center gap-x-4 gap-y-7 grid grid-cols-[repeat(auto-fit,100px)] md:grid-cols-[repeat(auto-fit,150px)] mx-3 cursor-pointer'>
                 {[...Array(seasonDetails[season_number - 1].releasedEpisodes)].map((_, index) => (
                     <div key={index} onClick={() => handleEpisodeChange(index)}
                         className={`shadow__btn whitespace-nowrap ${episode_number==index ? 'active' : ''}`} >

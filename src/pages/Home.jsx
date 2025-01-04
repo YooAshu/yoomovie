@@ -25,7 +25,7 @@ const Home = () => {
     return (
         <>
 
-            <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-10 gap-5 sm:p-10 p-5 md:grid-cols-4 ">
+            <div className="gap-5 sm:gap-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 p-5 sm:p-10">
                 {movieData.results.map((movie) => (
                     <MovieCard key={movie.id} data={movie} isWebSeries={data.isWebSeries} />
                 ))}

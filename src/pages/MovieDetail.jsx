@@ -18,7 +18,6 @@ const MovieDetail = () => {
     const seasonDetail = data.seasonDetail
     const key = videoKey(videoData)
     const tmdbid = movieData.id
-    console.log(movieData)
     return (
         <>
             <div className='flex md:flex-row flex-col items-start gap-24 my-10 p-5 md:p-10 w-full'>
@@ -30,9 +29,9 @@ const MovieDetail = () => {
                     </h1>
                     <div>
                         <h2 className='font-bold text-lg'>Genres</h2>
-                        <ul className='flex gap-4 mt-4 overflow-scroll' style={{scrollbarWidth:'none'}}>
+                        <ul className='flex flex-wrap items-center gap-4 mt-4' style={{scrollbarWidth:'none'}}>
                             {movieData.genres.map((genre) => {
-                                return <li key={genre.id} className='whitespace-nowrap gradient_btn'>{genre.name}</li>
+                                return <li key={genre.id} className='shadow__btn !text-white whitespace-nowrap'>{genre.name}</li>
                             })}
                         </ul>
                     </div>
@@ -42,7 +41,7 @@ const MovieDetail = () => {
                         </span>
                         <br /> {movieData.overview}</p>
                     <Released status={movieData.status} date={movieData.release_date || movieData.next_episode_to_air} isWebSeries={isWebSeries} />
-                    <RunTime time={movieData.runtime} isWebSeries={isWebSeries} number_of_seasons={movieData.number_of_seasons} />
+                    <RunTime time={movieData.runtime} isWebSeries={isWebSeries} number_of_seasons={seasonDetail.length} />
 
                     <TrailerVideo youtubeKey={key} />
                 </div>
@@ -60,7 +59,7 @@ const Released = ({ status, date, isWebSeries }) => {
     if (!isWebSeries) {
         return (
             <span>
-                <span className='font-semibold text-lg gradient_btn'>Releasing Date</span>
+                <span className='shadow__btn !px-5 font-semibold text-lg active'>Releasing Date</span>
                 <span> : {date}</span>
             </span>
         )
@@ -69,25 +68,25 @@ const Released = ({ status, date, isWebSeries }) => {
     }
     else {
         if (status === 'Ended') {
-            return <span className='font-semibold text-lg gradient_btn'>Series Completed</span>
+            return <span className='shadow__btn !px-5 w-max font-semibold text-lg active'>Series Completed</span>
         }
         return (
 
-            <span>
-                <span className='font-semibold text-lg gradient_btn'>
+            <div className='flex flex-col gap-4'>
+                <span className='shadow__btn !px-5 w-max font-semibold text-lg active'>
                     Currently Running
                 </span>
-                <br /><span> Next Episode on : {date && date.air_date}</span>
-            </span>
+                <span className=''> Next Episode on : {date && date.air_date}</span>
+            </div>
         )
     }
 }
 
 const RunTime = ({ time, isWebSeries, number_of_seasons }) => {
     if (!isWebSeries) {
-        return <span className='text-lg'> <span className='font-semibold gradient_btn'>Run Time</span> : {Math.floor(time / 60)}h {time % 60}m</span>
+        return <span className='text-lg'> <span className='shadow__btn !px-5 font-semibold active'>Run Time</span> : {Math.floor(time / 60)}h {time % 60}m</span>
     }
-    return <span className='text-lg'> <span className='font-semibold gradient_btn'>Total Seasons</span> : {number_of_seasons}</span>
+    return <span className='text-lg'> <span className='shadow__btn !px-5 font-semibold active'>Total Seasons</span> : {number_of_seasons}</span>
 }
 const TrailerVideo = ({ youtubeKey }) => {
 

@@ -17,6 +17,7 @@
     height: fit-content;
     background: #1b1b1b;
     color: #c4c4c4;
+    /* width: max-content; */
 }
 
 .shadow__btn:hover , .shadow__btn.active {

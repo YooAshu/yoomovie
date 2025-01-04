@@ -6,7 +6,6 @@ const Pageno = ({ currentPage, setCurrentPage }) => {
 
     const navigate = useNavigate(); // To navigate between pages
     const location = useLocation();
-
     // Handle page change
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -19,14 +18,14 @@ const Pageno = ({ currentPage, setCurrentPage }) => {
         <div className='flex justify-center gap-6 my-10 w-full'>
             <button
                 onClick={() => handlePageChange(Number(currentPage) - 1)}
-                disabled={currentPage <= 1}
-                className='font-semibold text-2xl gradient_btn'
+                disabled={currentPage==1}
+                className={`shadow__btn !px-5 font-semibold text-2xl ${(currentPage!=1)?'active':''}`}
             >
                 Previous
             </button>
             <button
                 onClick={() => handlePageChange(Number(currentPage) + 1)}
-                className='font-semibold text-2xl gradient_btn'
+                className='shadow__btn !px-5 font-semibold text-2xl active'
             // disabled={currentPage <= 1}
             >
                 Next
