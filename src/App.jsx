@@ -9,6 +9,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import getAllMovie from "./API/getAllMovie";
 import getMovieDetails from "./API/getMovieDetails";
 import MovieDetail from "./pages/MovieDetail";
+import CategorisedList from "./pages/CategorisedList";
+import getCategorisedList from './API/getCategorisedList'
 
 const App = () => {
 
@@ -37,6 +39,26 @@ const App = () => {
           path: '/webseries/:movieID',
           element:<MovieDetail/>,
           loader:getMovieDetails
+        },
+        {
+          path: '/category/:category',
+          element:<CategorisedList/>,
+          loader:getCategorisedList
+        },
+        {
+          path: '/webseries/category/:category',
+          element:<CategorisedList/>,
+          loader:getCategorisedList
+        },
+        {
+          path:'/genre/:genre',
+          element:<CategorisedList/>,
+          loader:getCategorisedList
+        },
+        {
+          path:'/webseries/genre/:genre',
+          element:<CategorisedList/>,
+          loader:getCategorisedList
         },
         
       ]

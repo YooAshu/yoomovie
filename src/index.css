@@ -20,16 +20,23 @@
     /* width: max-content; */
 }
 
-.shadow__btn:hover , .shadow__btn.active {
+.shadow__btn:hover,
+.shadow__btn.active {
     background: linear-gradient(93deg, #d805ff, #4101bffa);
     color: #fff;
     box-shadow: 0 0 5px #d805ff,
-                0 0 25px #d805ff,
-                0 0 50px #4101bffa,
-                0 0 100px #4101bffa;
+        0 0 25px #d805ff,
+        0 0 50px #4101bffa,
+        0 0 100px #4101bffa;
 }
 
-.gradient_btn{
+@media screen and (max-width:768px) {
+    .shadow__btn{
+        font-size: 10px;
+    }
+}
+
+.gradient_btn {
     padding: 10px 20px;
     border: none;
     font-size: 14px;
@@ -44,4 +51,29 @@
     background: linear-gradient(93deg, #d805ff, #4101bffa);
     color: #fff;
     width: max-content;
+}
+
+.red_shadow:hover {
+    transition: all .5s;
+    box-shadow: 0 0 5px #ff0526,
+        0 0 25px #f05e63,
+        0 0 50px #bf011dfa,
+        0 0 100px #ff0008fa;
+}
+
+.blue_shadow_1:hover {
+    transition: all .5s;
+    box-shadow: 0 0 5px #004ec2, 0 0 25px #0582ff, 0 0 50px #0760ddfa, 0 0 100px #3bc5e9;
+}
+
+.blue_shadow_2:hover {
+    transition: all .5s;
+    box-shadow: 0 0 5px #3b70f4,
+        0 0 25px #0582ff,
+        0 0 50px #0760ddfa,
+        0 0 100px #3b84eafa;
+}
+.blue_shadow_3:hover {
+    transition: all .5s;
+    box-shadow: 0 0 5px #0860fe, 0 0 25px #3191cd, 0 0 50px #195281, 0 0 100px #3eb5ff;
 }

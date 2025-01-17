@@ -32,7 +32,7 @@ const getAllMovie = async ({ params, request }) => {
         }
         else{
 
-            API = `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&page=${page}&sort_by=first_air_date.desc&with_watch_providers=8|119|283|122|350&watch_region=IN&with_origin_country=IN|US|KR|JA&with_original_language=hi|en|ja|ko&with_watch_monetization_types=flatrate`;
+            API = `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&page=${page}&sort_by=first_air_date.desc&with_watch_providers=8|119|283|122|350|232&watch_region=IN&with_origin_country=IN|US|KR|JA&with_original_language=hi|en|ja|ko&vote_average.gte=1`;
         }
         
         
@@ -50,7 +50,7 @@ const getAllMovie = async ({ params, request }) => {
         }
 
         const data = await res.json();
-        return { data: data, page: page, isWebSeries: isWebSeries };
+        return { data: data, page: page, isWebSeries: isWebSeries,total_pages:data.total_pages };
     } catch (error) {
         // Catch network or parsing errors
         throw new Response('Network error or invalid response', { status: 500 });
