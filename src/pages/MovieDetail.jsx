@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData, useRouteError } from 'react-router-dom'
+import { useLoaderData, useNavigate, useRouteError } from 'react-router-dom'
 import MovieCard from '../components/Ui/MovieCard';
 import YouTube from 'react-youtube';
 import MoviePlayer from '../components/Ui/MoviePlayer';
@@ -8,6 +8,7 @@ import SeriesPlayer from '../components/Ui/SeriesPlayer';
 const MovieDetail = () => {
     const data = useLoaderData();
     const error = useRouteError();
+    const navigate = useNavigate()
 
     if (error) {
         return <div>Error: {error.statusText || 'Failed to load movie details'}</div>;
@@ -18,6 +19,12 @@ const MovieDetail = () => {
     const seasonDetail = data.seasonDetail
     const key = videoKey(videoData)
     const tmdbid = movieData.id
+    const handleOnClick = (genre_id) => {
+        if (isWebSeries) {
+            navigate(`/webseries/genre/${genre_id}`)
+        }
+        navigate(`/genre/${genre_id}`)
+    }
     return (
         <>
             <div className='flex md:flex-row flex-col items-start gap-24 my-10 p-5 md:p-10 w-full'>
@@ -29,9 +36,9 @@ const MovieDetail = () => {
                     </h1>
                     <div>
                         <h2 className='font-bold text-lg'>Genres</h2>
-                        <ul className='flex flex-wrap items-center gap-4 mt-4' style={{scrollbarWidth:'none'}}>
+                        <ul className='flex flex-wrap items-center gap-4 mt-4' style={{ scrollbarWidth: 'none' }}>
                             {movieData.genres.map((genre) => {
-                                return <li key={genre.id} className='shadow__btn !text-white whitespace-nowrap'>{genre.name}</li>
+                                return <li key={genre.id} className='shadow__btn !text-white whitespace-nowrap' onClick={() => handleOnClick(genre.id)}>{genre.name}</li>
                             })}
                         </ul>
                     </div>
@@ -49,7 +56,7 @@ const MovieDetail = () => {
             </div>
 
             {!isWebSeries && <MoviePlayer tmdbid={tmdbid} />}
-            {isWebSeries && <SeriesPlayer data = {movieData} seasonDetails = {seasonDetail}/>}
+            {isWebSeries && <SeriesPlayer data={movieData} seasonDetails={seasonDetail} />}
 
         </>
     )
