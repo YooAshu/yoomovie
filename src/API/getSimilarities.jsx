@@ -3,10 +3,10 @@ const getSimilarities = async (id, isWebSeries) => {
     var API;
     var data;
     if (!isWebSeries) {
-        API = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1&api_key=${apiKey}`
+        API = `https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1&api_key=${apiKey}`
     }
     else {
-        API = `https://api.themoviedb.org/3/tv/${id}/similar?language=en-US&page=1&api_key=${apiKey}`
+        API = `https://api.themoviedb.org/3/tv/${id}/recommendations?language=en-US&page=1&api_key=${apiKey}`
     }
     try {
         const res = await fetch(API);
