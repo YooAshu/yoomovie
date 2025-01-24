@@ -1,4 +1,5 @@
 import getSeasonDetails from "./getSeasonsDetails";
+import getSimilarities from "./getSimilarities";
 const getMovieDetails = async ({ params, request }) => {
     const id = params.movieID;
 
@@ -32,9 +33,10 @@ const getMovieDetails = async ({ params, request }) => {
 
         var seasonDetails = []
         if (isWebSeries) {
-            const totalSeason = movieData.seasons.filter(season => season.season_number !=0 && season.episode_count!=0).length;
+            const totalSeason = movieData.seasons.filter(season => season.season_number != 0 && season.episode_count != 0).length;
             seasonDetails = await getSeasonDetails(id, totalSeason);
         }
+        const similarities = await getSimilarities(id, isWebSeries);
 
 
         // Return the data from both APIs
@@ -42,7 +44,8 @@ const getMovieDetails = async ({ params, request }) => {
             movie: movieData,
             videos: videoData,
             isWebSeries: isWebSeries,
-            seasonDetail: seasonDetails
+            seasonDetail: seasonDetails,
+            similarities: similarities
         };
     } catch (error) {
         // Handle network errors or invalid responses

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLoaderData, useNavigate, useRouteError } from 'react-router-dom'
 import MovieCard from '../components/Ui/MovieCard';
 import YouTube from 'react-youtube';
 import MoviePlayer from '../components/Ui/MoviePlayer';
 import SeriesPlayer from '../components/Ui/SeriesPlayer';
+import Similarities from '../components/Ui/Similarities';
 
 const MovieDetail = () => {
     const data = useLoaderData();
@@ -25,6 +26,9 @@ const MovieDetail = () => {
         }
         navigate(`/genre/${genre_id}`)
     }
+
+    // console.log(data.similarities)
+
     return (
         <>
             <div className='flex md:flex-row flex-col items-start gap-24 my-10 p-5 md:p-10 w-full'>
@@ -57,6 +61,8 @@ const MovieDetail = () => {
 
             {!isWebSeries && <MoviePlayer tmdbid={tmdbid} />}
             {isWebSeries && <SeriesPlayer data={movieData} seasonDetails={seasonDetail} />}
+            <Similarities similarities={data.similarities.results} isWebSeries={isWebSeries} />
+
 
         </>
     )
