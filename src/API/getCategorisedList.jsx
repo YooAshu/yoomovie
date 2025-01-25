@@ -29,10 +29,10 @@ const getCategorisedList = async ({ params, request }) => {
                     digitalReleaseAPI = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&certification_country=IN&include_adult=false&include_video=false&language=en-US&page=${page}&region=IN&release_date.lte=${currentDate}&sort_by=primary_release_date.desc&watch_region=IN&with_origin_country=US&with_original_language=en&with_release_type=4&with_watch_providers=8|337|119|577|232|220&vote_average.gte=1`;
                     break
                 case 'netflix':
-                    API = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&certification_country=IN&include_adult=false&include_video=false&language=en-US&page=${page}&region=IN&release_date.lte=${currentDate}&sort_by=primary_release_date.desc&watch_region=IN&with_release_type=4&with_watch_providers=8`;
+                    API = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&certification_country=IN&include_adult=false&include_video=false&language=en-US&page=${page}&region=IN&release_date.lte=${currentDate}&sort_by=popularity.desc&watch_region=IN&with_release_type=4&with_watch_providers=8`;
                     break
                 case 'prime':
-                    API = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&certification_country=IN&include_adult=false&include_video=false&language=en-US&page=${page}&region=IN&release_date.lte=${currentDate}&sort_by=primary_release_date.desc&watch_region=IN&with_release_type=4&with_watch_providers=119`;
+                    API = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&certification_country=IN&include_adult=false&include_video=false&language=en-US&page=${page}&region=IN&release_date.lte=${currentDate}&sort_by=popularity.desc&watch_region=IN&with_release_type=4&with_watch_providers=119`;
                     break
             }
         }
