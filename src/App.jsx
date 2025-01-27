@@ -13,7 +13,7 @@ import CategorisedList from "./pages/CategorisedList";
 import getCategorisedList from './API/getCategorisedList'
 
 const App = () => {
-
+  
   const router = createBrowserRouter([
 
     {
@@ -23,44 +23,44 @@ const App = () => {
         {
           path: '/',
           element: <Home />,
-          loader:getAllMovie
+          loader: getAllMovie
         },
         {
-          path:'/:movieID',
-          element:<MovieDetail/>,
-          loader:getMovieDetails
+          path: '/:movieID',
+          element: <MovieDetail />,
+          loader: getMovieDetails
         },
         {
           path: '/webseries',
           element: <Home />,
-          loader:getAllMovie
+          loader: getAllMovie
         },
         {
           path: '/webseries/:movieID',
-          element:<MovieDetail/>,
-          loader:getMovieDetails
+          element: <MovieDetail />,
+          loader: getMovieDetails
         },
         {
           path: '/category/:category',
-          element:<CategorisedList/>,
-          loader:getCategorisedList
+          element: <CategorisedList />,
+          loader: getCategorisedList
         },
         {
           path: '/webseries/category/:category',
-          element:<CategorisedList/>,
-          loader:getCategorisedList
+          element: <CategorisedList />,
+          loader: getCategorisedList
         },
         {
-          path:'/genre/:genre',
-          element:<CategorisedList/>,
-          loader:getCategorisedList
+          path: '/genre/:genre',
+          element: <CategorisedList />,
+          loader: getCategorisedList
         },
         {
-          path:'/webseries/genre/:genre',
-          element:<CategorisedList/>,
-          loader:getCategorisedList
+          path: '/webseries/genre/:genre',
+          element: <CategorisedList />,
+          loader: getCategorisedList
         },
-        
+
       ]
     },
 
@@ -70,5 +70,7 @@ const App = () => {
   return <RouterProvider router={router} />
 
 }
+
+
 
 export default App
